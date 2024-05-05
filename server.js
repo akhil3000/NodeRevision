@@ -18,7 +18,7 @@ const books=[{
       year:2011,
       pages:400,
       publisher:"Marvel Comics",
-      language:"World Wide"
+      language:"WorldWide"
 
 }
 ]
