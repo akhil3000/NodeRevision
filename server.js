@@ -1,7 +1,8 @@
+require("dotenv").config();
 const express=require('express');
 const app=express();
-const PORT=8080;
-
+const PORT=process.env.PORT;
+const bookRouter=require("./routes/book");
 const books=[{
     id:1,
     title:"IronMan",
@@ -37,32 +38,11 @@ const secondLogger=(req,res,next)=>{
 
 app.use(logger);
 app.use(secondLogger);
-
+app.use("/api/books",bookRouter);
 app.get("/",(req,res)=>{
     res.send("Hello World");
 })
 
-app.get("/api/books",(req,res)=>{
-    res.send(books);//Printing and retrieving array
-})
-
-app.get("/api/books/:id",(req,res)=>{
-    const id=req.params.id;
-    res.send(books[id-1]);//printing array and retrieving array with id
-})
-
-app.post("/api/books",(req,res)=>{
-    const book=req.body;//storing request body
-    books.push(book);//Pushing request body into array
-    res.send(book);//Printing and retrieving array
-})
-
-app.delete("/api/books/:id",(req,res)=>{
-    const id=req.params.id;
-    const book=books[id-1];//storing index
-    books.splice(id-1,1);//reducing index
-    res.send(book);
-})
 
 app.listen(PORT,()=>{
     console.log("Server is listening to the port"+ PORT);
